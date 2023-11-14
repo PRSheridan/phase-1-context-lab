@@ -1,4 +1,65 @@
-/* Your Code Here */
+// Your code here
+
+function createEmployeeRecord (employeeArray) {
+    const employee = {
+        firstName: employeeArray[0],
+        familyName: employeeArray[1],
+        title: employeeArray[2],
+        payPerHour: employeeArray[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+    return employee;
+}
+
+function createEmployeeRecords (employeesArray) {
+    const employeeList = employeesArray.map((employee) => {
+        return createEmployeeRecord(employee)
+    });
+    return employeeList;
+};
+
+function createTimeInEvent (dt) {
+    const tempDate = dt.slice(0, 10);
+    const tempTime = Number(dt.slice(11, 15));
+    this.timeInEvents.push({
+        type: "TimeIn",
+        hour: tempTime,
+        date: tempDate
+    });
+    return this;
+};
+
+function createTimeOutEvent (dt) {
+    const tempDate = dt.slice(0, 10);
+    const tempTime = Number(dt.slice(11, 15));
+    this.timeOutEvents.push({
+        type: "TimeOut",
+        hour: tempTime,
+        date: tempDate
+    });
+    return this;
+};
+
+function hoursWorkedOnDate (date) {
+    let timeIn, timeOut;
+    for (let event in this.timeInEvents){
+        if ((this.timeInEvents[event].date === date)){
+            timeIn = this.timeInEvents[event].hour};
+    };
+    for (let event in this.timeOutEvents){
+        if ((this.timeOutEvents[event].date === date)){
+            timeOut = this.timeOutEvents[event].hour};
+    };
+    return (timeOut - timeIn)/100;
+};
+
+//working on this section currently - error reading timeInEvents for some reason... reverted back to original code
+function wagesEarnedOnDate (employee, date) {
+    let hours = hoursWorkedOnDate(employee, date);
+    let wage = employee.payPerHour;
+    return hours*wage;
+}
 
 /*
  We're giving you this function. Take a look at it, you might see some usage
@@ -20,4 +81,16 @@ const allWagesFor = function () {
 
     return payable
 }
+
+function calculatePayroll (employeesArray) {
+    let totalWages = employeesArray.map((employee) => {
+        return allWagesFor(employee);
+    });
+    return totalWages.reduce((accum, currV) => {
+        return accum + currV;
+    });
+};
+
+
+
 
