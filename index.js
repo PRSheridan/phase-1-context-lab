@@ -1,4 +1,3 @@
-// Your code here
 
 function createEmployeeRecord (employeeArray) {
     const employee = {
@@ -54,10 +53,9 @@ function hoursWorkedOnDate (date) {
     return (timeOut - timeIn)/100;
 };
 
-//working on this section currently - error reading timeInEvents for some reason... reverted back to original code
-function wagesEarnedOnDate (employee, date) {
-    let hours = hoursWorkedOnDate(employee, date);
-    let wage = employee.payPerHour;
+function wagesEarnedOnDate (date) {
+    let hours = hoursWorkedOnDate.call(this, date);
+    let wage = this.payPerHour;
     return hours*wage;
 }
 
@@ -82,10 +80,12 @@ const allWagesFor = function () {
     return payable
 }
 
+function findEmployeeByFirstName (srcArray, firstName) {
+    return srcArray.find((employee) => employee.firstName === firstName);
+}
+
 function calculatePayroll (employeesArray) {
-    let totalWages = employeesArray.map((employee) => {
-        return allWagesFor(employee);
-    });
+    let totalWages = employeesArray.map((employee) => allWagesFor.call(employee));
     return totalWages.reduce((accum, currV) => {
         return accum + currV;
     });
